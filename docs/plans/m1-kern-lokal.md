@@ -1,6 +1,6 @@
 # Plan M1 – Kern lokal (Entwurf zur Bestätigung)
 
-Stand: 2026-10-14 · Autor: Claude · Status: **Entwurf, wartet auf Bestätigung des Maintainers**
+Stand: 2026-10-14 · Autor: Claude · Status: **Entwurf; Fragen 1–4 entschieden, Frage 5 offen**
 (AGENTS.md §5.3: Bei größeren Aufgaben zuerst Plan, dann Bestätigung.)
 
 M1 beginnt erst, wenn M0 funktionsfähig ist (§4.5). Voraussetzung ist der Abschluss von
@@ -59,17 +59,19 @@ Vorschlag zur Aufgabenteilung (getrennte Module, keine Kollision):
 - Secrets nie in Logs oder `toString()`; Klassen mit Secrets sind keine Records.
 - Audit-Log für Registrierung, Start/Stopp, Terminal-Befehle; append-only.
 
-## Entscheidungen, die vor Beginn getroffen werden müssen (ADR)
+## Entscheidungen (vom Maintainer am 2026-10-14 getroffen; jede wird als ADR festgehalten, bevor
+das jeweilige Paket beginnt)
 
-1. **Protokollversionierung:** Wie wird Rückwärtskompatibilität zwischen Master und Node geregelt
-   (Feldnummern, `reserved`, Versionsfeld im Handshake)?
-2. **Zertifikatserzeugung:** JDK-Bordmittel oder BouncyCastle?
-3. **Plattformumfang M1:** Läuft M1 nur unter Linux (cgroups v2, eigener Systemnutzer), oder muss
-   die lokale Entwicklung unter Windows funktionieren (RAM-Buchhaltung ohne cgroups,
-   Prozessstart ohne Nutzerwechsel mit deutlicher Warnung)? Empfehlung: Linux als Zielplattform,
-   Windows nur für Entwicklung mit abgeschalteten Durchsetzungsfunktionen und Warnung.
-4. **Audit-Log-Speicher in M1:** Datei (append-only) bis zum Storage-Modul in M4?
-5. **Rollenmodell für das Terminal:** Platzhalter-Rollen in M1, vollständiges RBAC in M5?
+1. **Protokollversionierung:** Versionsfeld im Handshake plus `reserved`-Regeln. Master und Node
+   melden ihre Protokollversion beim Verbinden, inkompatible Versionen werden abgelehnt, Feldnummern
+   werden nie wiederverwendet.
+2. **Zertifikatserzeugung:** JDK-Bordmittel; BouncyCastle nur, wenn die Erzeugung ohne ihn nicht
+   sauber möglich ist (dann eigenes ADR mit Begründung).
+3. **Plattformumfang M1:** Linux ist die Zielplattform (cgroups v2, eigener Systemnutzer). Windows
+   dient nur der Entwicklung, mit abgeschalteten Durchsetzungsfunktionen und deutlicher Warnung.
+4. **Audit-Log-Speicher in M1:** append-only Datei (Rechte 600) bis zum Storage-Modul in M4.
+5. **Rollenmodell für das Terminal:** *noch offen.* Arbeitsannahme bis zur Entscheidung:
+   Platzhalter-Rollen in M1, vollständiges RBAC in M5.
 
 ## Definition of Done für M1
 
