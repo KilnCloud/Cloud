@@ -48,6 +48,9 @@ Betroffene Dateien sind insbesondere die Root-Gradle-Dateien, `.gitignore`, `.gi
 - `prepareKotlinBuildScriptModel --dependency-verification strict`: nach Ergänzung der zehn
   Source-Artefakte erfolgreich
 - Unabhängiges Security-Nachreview: **Freigabe**, keine verbleibenden Sicherheitsbefunde
+- Frischer temporärer Checkout nach dem IDE-Fix: `clean build spotbugsMain spotbugsTest` mit
+  strikt erzwungener Dependency Verification erfolgreich (40 Tasks); Checkout sicher entfernt
+- Erneutes unabhängiges Security-Nachreview für Commit `2889513`: **Freigabe**, keine Befunde
 
 ## Offen
 
