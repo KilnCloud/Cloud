@@ -21,6 +21,9 @@
 - Minimale, nebenwirkungsfreie Master- und Node-Einstiegspunkte samt eigenen Tests ergänzt.
 - Ausführbare modulare JARs sowie Quellen- und Javadoc-Artefakte konfiguriert.
 - Root- und Modul-Dokumentation sowie die zentrale Statusseite angelegt.
+- Gradle-Distribution mit der offiziellen SHA-256-Prüfsumme gebunden.
+- SpotBugs 6.5.13 mit FindSecBugs 1.14.0 für alle analysierbaren Java-Source-Sets aktiviert.
+- Strikte Gradle Dependency Verification mit SHA-256-Metadaten eingerichtet.
 
 Betroffene Dateien sind insbesondere die Root-Gradle-Dateien, `.gitignore`, `.gitattributes`,
 `README.md`, die vier Modulverzeichnisse und `docs/STATUS.md`.
@@ -35,11 +38,15 @@ Betroffene Dateien sind insbesondere die Root-Gradle-Dateien, `.gitignore`, `.gi
 - Javadoc für alle vier Module: erfolgreich
 - Bytecode: API Major 65 (Java 21), Cloud-Module Major 69 (Java 25)
 - JPMS-JAR-Beschreibungen: nur `at.kilncloud.api` wird exportiert
+- Unabhängiges Security-Review: drei mittlere Supply-Chain-Befunde, anschließend behoben
+- SpotBugs/FindSecBugs: API, Master und Node ohne Befund; Common enthält noch keinen
+  analysierbaren Produktionscode und wird bis dahin explizit als leer erkannt
 
 ## Offen
 
-- Security-Review in einem eigenen Codex-Thread durchführen und Befunde abarbeiten.
-- Vollständigen Abschlussbuild nach dem Review ausführen.
+- Security-Nachreview der behobenen Befunde durchführen.
+- Vollständigen Abschlussbuild in einem frischen Checkout ausführen, da der aktive Workspace durch
+  einen externen Windows-Dateilock auf alten Build-Ausgaben beeinträchtigt ist.
 - Feature-Branch pushen und Commit im Notion-Eintrag verlinken.
 - Die übrigen M0-Pakete bleiben eigenständige Roadmap-Aufgaben.
 
@@ -57,6 +64,9 @@ Betroffene Dateien sind insbesondere die Root-Gradle-Dateien, `.gitignore`, `.gi
 - Die ursprüngliche Notion-Seite war eine Lernnotiz ohne die in `AGENTS.md` geforderten Felder.
 - `gradlew clean` konnte das vorhandene Root-Buildverzeichnis wegen eines externen Windows-Locks
   nicht entfernen. Es wurden keine gewaltsamen oder destruktiven Löschversuche unternommen.
+- Das erste unabhängige Security-Review fand fehlende SpotBugs-/FindSecBugs-Gates, fehlende
+  Dependency Verification und eine fehlende Gradle-Distributionsprüfsumme. Alle drei Befunde
+  wurden in derselben Session behoben.
 - `docs/reference/FontConverter.java` ist nicht vorhanden und muss vor M7 bereitgestellt werden.
 
 ## Nächster sinnvoller Schritt

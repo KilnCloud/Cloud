@@ -37,3 +37,14 @@ tasks.withType<Javadoc>().configureEach {
     isFailOnError = true
     options.encoding = "UTF-8"
 }
+
+tasks.named("spotbugsMain") {
+    onlyIf("kiln-common contains production bytecode beyond module and package metadata") {
+        fileTree(layout.buildDirectory.dir("classes/java/main")) {
+                    include("**/*.class")
+                    exclude("module-info.class", "**/package-info.class")
+                }
+                .files
+                .isNotEmpty()
+    }
+}

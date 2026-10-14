@@ -1,7 +1,13 @@
 [versions]
+findsecbugs = "1.14.0"
 junit = "5.14.3"
+spotbugs-plugin = "6.5.13"
 
 [libraries]
+findsecbugs-plugin = { module = "com.h3xstream.findsecbugs:findsecbugs-plugin", version.ref = "findsecbugs" }
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+[plugins]
+spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs-plugin" }

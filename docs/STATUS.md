@@ -4,12 +4,13 @@ Stand: 2026-10-14
 
 ## Aktueller Meilenstein
 
-**M0 – Fundament, etwa 20 %**
+**M0 – Fundament, etwa 25 %**
 
 Der Gradle-Multi-Modul-Build besitzt die ersten vier korrekt benannten Module. Java-Ziele,
 JPMS-Kapselung und minimale ausführbare Artefakte sind eingerichtet. Die verpflichtenden
-Convention Plugins, Qualitätswerkzeuge, Dependency Verification und CI fehlen noch; M0 ist daher
-nicht funktionsfähig abgeschlossen.
+Convention Plugins, die übrigen Qualitätswerkzeuge und CI fehlen noch. SpotBugs mit FindSecBugs,
+strikte Dependency Verification und die Gradle-Wrapper-Prüfsumme sind als erste verpflichtende
+Sicherheits-Gates aktiv; M0 ist dennoch nicht funktionsfähig abgeschlossen.
 
 ## Modulübersicht
 
@@ -47,9 +48,10 @@ nicht funktionsfähig abgeschlossen.
 
 ## Bekannte Probleme und Risiken
 
-- M0 erzwingt noch keine JaCoCo-, Error-Prone-, NullAway-, SpotBugs-, FindSecBugs-, Spotless-
-  oder PIT-Prüfungen. Ein grüner Build ist daher noch kein vollständiger Qualitätsnachweis.
-- Gradle Dependency Verification ist noch nicht eingerichtet.
+- M0 erzwingt noch keine JaCoCo-, Error-Prone-, NullAway-, Spotless- oder PIT-Prüfungen. Ein grüner
+  Build ist daher noch kein vollständiger Qualitätsnachweis. SpotBugs und FindSecBugs sind aktiv.
+- Gradle Dependency Verification läuft strikt mit SHA-256-Metadaten; PGP-Signaturprüfung ist noch
+  nicht aktiviert.
 - Eine CI-Pipeline fehlt.
 - `docs/reference/FontConverter.java` fehlt im Repository. Die spätere M7-Implementierung darf
   ohne diese Wahrheitsquelle nicht begonnen werden.
@@ -60,7 +62,7 @@ nicht funktionsfähig abgeschlossen.
 
 ## Nächste Schritte
 
-1. Aktuelles Gradle-Grundgerüst per Security-Review prüfen und in Review übergeben.
+1. Security-Fixes in einem unabhängigen Nachreview bestätigen und das Grundgerüst übergeben.
 2. Convention Plugins und verpflichtende Qualitätswerkzeuge in `build-logic` einrichten.
 3. CI-Pipeline für vollständige Builds und Sicherheitsprüfungen ergänzen.
 4. `kiln-common` mit validierten Werttypen und vollständigen Tests beginnen.
