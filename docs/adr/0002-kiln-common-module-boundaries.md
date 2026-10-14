@@ -31,3 +31,14 @@ auf Interna anderer Module und verlangt, dass fachliche Kommunikation ausschlie�
 - Die Modulgrenze bleibt explizit: Nur drei kleine Infrastrukturpakete sind sichtbar.
 - Änderungen an diesen Typen müssen alle internen Verbraucher berücksichtigen, unterliegen aber
   nicht der SemVer-/japicmp-Garantie von `kiln-api`.
+
+## Nachtrag (2026-10-14): viertes Paket `at.kilncloud.common.config`
+
+Die Konfigurationsbasis `SecureConfig` (strikt konfigurierter JSON-Reader/-Writer) wird als
+`at.kilncloud.common.config` exportiert, weil Master, Node und weitere Cloud-Module ihre
+Konfigurationsdateien identisch und sicher laden müssen. Die Signaturen enthalten keine
+Jackson-Typen; Jackson bleibt ein interner, nicht transitiver Abhängigkeitsdetail
+(`requires com.fasterxml.jackson.databind` ohne `transitive`). Module, deren Konfigurationstypen
+auf dem Modulpfad geladen werden, öffnen deren Paket für `com.fasterxml.jackson.databind`.
+`SecureFiles` (TOCTOU-sicheres Lesen und atomares Schreiben) ergänzt das bestehende Paket
+`at.kilncloud.common.filesystem`. Die übrigen Regeln dieses ADR gelten unverändert.
