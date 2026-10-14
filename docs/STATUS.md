@@ -4,13 +4,13 @@ Stand: 2026-10-14
 
 ## Aktueller Meilenstein
 
-**M0 – Fundament, etwa 45 %**
+**M0 – Fundament, etwa 85 %; M1 hat auf Anweisung des Maintainers begonnen**
 
 Der Gradle-Multi-Modul-Build besitzt die ersten vier korrekt benannten Module. Java-Ziele,
 JPMS-Kapselung und minimale ausführbare Artefakte sind eingerichtet. Die Convention Plugins in
 `build-logic` erzwingen Spotless, Error Prone mit NullAway, JaCoCo (90 %), SpotBugs mit FindSecBugs,
 Javadoc ohne Warnungen und strikte Dependency Verification (SHA-256). PIT, japicmp und die
-PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
+PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig, aber nicht vollständig abgeschlossen.
 
 ## Modulübersicht
 
@@ -18,7 +18,7 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 |---|---|---:|---|---|---|---|
 | `build-logic` | in Arbeit | 60 % | Convention Plugins (Java 25/21, Quality, Publishing), Spotless, Error Prone + NullAway, JaCoCo 90 %, SpotBugs, Funktionstests | PIT, japicmp, Signierung, PGP-Prüfung | 2026-10-14 | Claude |
 | `kiln-api` | Grundgerüst | 5 % | Java-21-JAR, JPMS-Export, API-Anker mit Test, Javadoc-/Sources-JAR, Maven-Publikation (ohne Ziel) | Fachliche Verträge, japicmp, API-Doku | 2026-10-14 | Codex |
-| `kiln-protocol` | nicht begonnen | 0 % | – | Protobuf-Verträge und Build | – | – |
+| `kiln-protocol` | Grundgerüst | 15 % | Protobuf-/gRPC-Build, Vertrag `NodeControl` (Register mit Version und Join-Token, Heartbeat), Versionsregel, sicheres Logging, Wire-Contract-Tests | Weitere Verträge (Serverstart/-stopp, Terminal, Kapazität) | 2026-10-14 | Claude |
 | `kiln-common` | in Arbeit | 35 % | Validierte Server-/Templatenamen, sichere Auflösung existierender Pfade, sichere Token-Erzeugung und konstanter Vergleich; JPMS/JSpecify; 96 % Line-/95 % Branch-Coverage; TOCTOU-sicheres Lesen/Schreiben, strikte JSON-Konfiguration | Weitere gemeinsame Utilities nach Bedarf von M1 | 2026-10-14 | Codex, Claude |
 | `kiln-storage` | nicht begonnen | 0 % | – | Datei- und Datenbank-Backends, Migrationen und Tests | – | – |
 | `kiln-master` | Grundgerüst | 2 % | Ausführbares Java-25-Modul und Einstiegspunkt-Test | Gesamte M1+-Funktionalität | 2026-10-14 | Codex |
@@ -44,7 +44,7 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 
 | Agent | Roadmap-Eintrag | Bereich | Branch | Stand |
 |---|---|---|---|---|
-| Claude | kiln-common: sichere Konfigurationsbasis und TOCTOU-sichere Dateioperationen | kiln-common | `claude/feat/common-files-config` | Umgesetzt; Security-Review und Maintainer-Review offen |
+| Claude | kiln-protocol: Modul, Protobuf-Build und Handshake-Vertrag (M1, Paket 1a) | kiln-protocol | `claude/feat/protocol-foundation` | Umgesetzt; Review offen |
 
 ## Bekannte Probleme und Risiken
 

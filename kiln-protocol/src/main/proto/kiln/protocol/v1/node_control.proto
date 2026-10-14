@@ -1,0 +1,66 @@
+// Wire contract between the KilnCloud master and its nodes, version 1.
+//
+// Compatibility rules (ADR 0003):
+//  - Field numbers are never reused or changed. A removed field is added to `reserved`, with its name.
+//  - New fields are optional by nature in proto3; readers must tolerate unknown fields.
+//  - Incompatible changes bump `ProtocolVersion.major` and live in a new package (v2).
+//  - Every connection starts with Register; the server rejects an incompatible major version.
+syntax = "proto3";
+
+package kiln.protocol.v1;
+
+option java_package = "at.kilncloud.protocol.v1";
+option java_multiple_files = true;
+option java_outer_classname = "NodeControlProto";
+
+// Version of this wire contract. Peers are compatible when `major` matches (minor changes only add
+// optional fields).
+message ProtocolVersion {
+  uint32 major = 1;
+  uint32 minor = 2;
+}
+
+// First message of every node connection.
+message RegisterRequest {
+  // Protocol version the node speaks.
+  ProtocolVersion client_version = 1;
+  // Name of the node; validated by the master against its name rules.
+  string node_name = 2;
+  // One-time join token. Never log or persist it. Protobuf toString() prints it, so log messages only via
+  // ProtocolLogging.safeString(), which honors debug_redact.
+  bytes join_token = 3 [debug_redact = true];
+}
+
+enum RegisterStatus {
+  REGISTER_STATUS_UNSPECIFIED = 0;
+  REGISTER_STATUS_OK = 1;
+  REGISTER_STATUS_VERSION_INCOMPATIBLE = 2;
+  REGISTER_STATUS_TOKEN_REJECTED = 3;
+  REGISTER_STATUS_NAME_REJECTED = 4;
+}
+
+message RegisterResponse {
+  // Protocol version the master speaks; lets the node report a precise mismatch.
+  ProtocolVersion server_version = 1;
+  RegisterStatus status = 2;
+}
+
+// Periodic liveness and capacity report of a registered node.
+message HeartbeatRequest {
+  // Strictly increasing per connection; lets the master detect replays and gaps.
+  uint64 sequence = 1;
+  // RAM currently reserved by running servers on the node, in MiB.
+  uint64 memory_used_mib = 2;
+}
+
+message HeartbeatResponse {
+  // Echo of the request sequence.
+  uint64 sequence = 1;
+}
+
+service NodeControl {
+  // Registers a node. Must be the first call; other calls are refused before a successful Register.
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  // Reports liveness. Called repeatedly by a registered node.
+  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
+}

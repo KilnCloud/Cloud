@@ -16,6 +16,7 @@ Funktionstests abgesichert. CI, PIT, japicmp, Signaturen und PGP-Prüfung fehlen
 | `kiln.java-cloud` | Cloud-Module: `--release 25`, JDK-25-Toolchain |
 | `kiln.java-compat` | `kiln-api`, Bridges, Feature-Module: `--release 21` |
 | `kiln.quality` | Spotless (Palantir), Error Prone + NullAway, `@NullMarked`-Pflicht, SpotBugs + FindSecBugs, JaCoCo ≥ 90 % |
+| `kiln.protobuf` | Protobuf-/gRPC-Generierung; generierter Code ist von Format, Analyse, Javadoc und Coverage ausgenommen (ADR 0003) |
 | `kiln.publishing` | `maven-publish` mit POM (Apache-2.0, SCM); kein Ziel, keine Zugangsdaten |
 | `kiln.java-base` | intern; wird von den obigen Plugins mitgebracht |
 

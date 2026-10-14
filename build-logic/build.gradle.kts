@@ -5,6 +5,7 @@ plugins {
 dependencies {
     // Plugin artifacts that the precompiled convention scripts apply.
     implementation(libs.errorprone.gradle.plugin)
+    implementation(libs.protobuf.gradle.plugin)
     implementation(libs.spotbugs.gradle.plugin)
     implementation(libs.spotless.gradle.plugin)
 
