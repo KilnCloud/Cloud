@@ -1,5 +1,3 @@
-package com.clansmp.proxysystem.utils.converter;
-
 /**
  * Wandelt normalen Text in Unicode-Smallcaps um.
  * <p>
