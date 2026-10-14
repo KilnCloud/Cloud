@@ -1,14 +1,14 @@
 plugins {
-    id("java")
+    `java-library`
 }
-
-group = "at.kilncloud.common"
-version = "1.0-SNAPSHOT"
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
     }
+    modularity.inferModulePath = true
+    withJavadocJar()
+    withSourcesJar()
 }
 
 repositories {
@@ -16,6 +16,8 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":kiln-api"))
+
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly(libs.junit.platform.launcher)
@@ -23,4 +25,15 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.addAll(listOf("-Xlint:all", "-Werror"))
+    options.encoding = "UTF-8"
+    options.release = 25
+}
+
+tasks.withType<Javadoc>().configureEach {
+    isFailOnError = true
+    options.encoding = "UTF-8"
 }

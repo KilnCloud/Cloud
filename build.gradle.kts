@@ -1,20 +1,19 @@
 plugins {
-    id("java")
+    base
 }
 
 group = "at.kilncloud"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+allprojects {
+    group = rootProject.group
+    version = rootProject.version
 }
 
-dependencies {
-    testImplementation(platform(libs.junit.bom))
-    testImplementation(libs.junit.jupiter)
-    testRuntimeOnly(libs.junit.platform.launcher)
+tasks.named("build") {
+    dependsOn(subprojects.map { "${it.path}:build" })
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.named("clean") {
+    dependsOn(subprojects.map { "${it.path}:clean" })
 }
