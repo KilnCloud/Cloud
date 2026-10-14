@@ -1,5 +1,6 @@
 // Static analysis and quality gates for every KilnCloud module (AGENTS.md §7.8, §13, §15, §17).
 // None of these gates may be weakened or switched off to get a green build (AGENTS.md §18).
+import at.kilncloud.buildlogic.NullMarkedPackages
 import at.kilncloud.buildlogic.ProductionBytecode
 import net.ltgt.gradle.errorprone.CheckSeverity
 import net.ltgt.gradle.errorprone.errorprone
@@ -43,6 +44,27 @@ tasks.withType<JavaCompile>().configureEach {
         option("NullAway:AnnotatedPackages", "at.kilncloud")
         option("NullAway:JSpecifyMode", "true")
     }
+}
+
+// --- @NullMarked on every package with code (AGENTS.md §15) ---
+val verifyNullMarked =
+    tasks.register("verifyNullMarked") {
+        group = "verification"
+        description = "Fails if a package with production code is not marked @NullMarked."
+        val sourceRoot = layout.projectDirectory.dir("src/main/java")
+        inputs.dir(sourceRoot).optional()
+        doLast {
+            val violations = NullMarkedPackages.violations(sourceRoot.asFile)
+            if (violations.isNotEmpty()) {
+                throw GradleException(
+                    "Packages without @NullMarked (add it to package-info.java):\n" +
+                        violations.joinToString("\n") { "  - $it" })
+            }
+        }
+    }
+
+tasks.check {
+    dependsOn(verifyNullMarked)
 }
 
 // --- SpotBugs + FindSecBugs ---
