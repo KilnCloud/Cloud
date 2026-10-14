@@ -12,8 +12,9 @@ import org.gradle.testkit.runner.GradleRunner;
 /**
  * Throw-away Gradle project that applies the KilnCloud convention plugins under test.
  *
- * <p>Runs offline and against the real Gradle user home so that the tests never reach the
- * network and only see artifacts that dependency verification already approved.
+ * <p>The fixture uses the real version catalog and the real, strict dependency verification
+ * metadata. Artifacts are downloaded from Maven Central and must match the pinned SHA-256 values,
+ * so the tests do not depend on what an earlier build left in the Gradle user home.
  */
 final class ConventionFixture {
     private final Path projectDir;
@@ -34,6 +35,11 @@ final class ConventionFixture {
         plugins.append("}\n");
         // Same version catalog as the real build, so tests and production resolve identical versions.
         Files.copy(Path.of(System.getProperty("kiln.versionCatalog")), projectDir.resolve("libs.versions.toml"));
+        // Same hash pinning as the real build: artifacts are downloaded from Maven Central, never trusted blindly.
+        Files.createDirectories(projectDir.resolve("gradle"));
+        Files.copy(
+                Path.of(System.getProperty("kiln.verificationMetadata")),
+                projectDir.resolve("gradle/verification-metadata.xml"));
         Files.writeString(projectDir.resolve("settings.gradle.kts"), """
                 dependencyResolutionManagement {
                     repositories { mavenCentral() }
@@ -93,7 +99,6 @@ final class ConventionFixture {
 
     private GradleRunner runner(String... arguments) {
         List<String> args = new ArrayList<>(List.of(arguments));
-        args.add("--offline");
         args.add("--stacktrace");
         return GradleRunner.create()
                 .withProjectDir(projectDir.toFile())

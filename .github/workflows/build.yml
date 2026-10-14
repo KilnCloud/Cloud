@@ -1,0 +1,52 @@
+# KilnCloud CI: baut und prüft den gesamten Gradle-Build in einer frischen Umgebung.
+#
+# Sicherheitsentscheidungen (AGENTS.md §7.7, §17):
+# - Actions sind per Commit-SHA gepinnt (der Tag steht als Kommentar).
+# - Das Token hat nur Leserechte (`contents: read`), Zugangsdaten werden nicht im Checkout abgelegt.
+# - Kein Build-Cache zwischen Läufen: Ein vergifteter Cache könnte sonst Prüfungen umgehen.
+# - Der Build läuft mit strikter Dependency Verification (SHA-256) und prüft den Gradle Wrapper.
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Gradle Wrapper prüfen
+        uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+
+      - name: JDK 25 einrichten
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Bauen und prüfen
+        run: ./gradlew clean build spotbugsMain spotbugsTest --dependency-verification strict --console=plain
+
+      - name: Berichte hochladen
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: build-reports
+          retention-days: 7
+          path: |
+            **/build/reports/**
+            **/build/test-results/**
