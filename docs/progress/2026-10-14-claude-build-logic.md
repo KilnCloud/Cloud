@@ -24,7 +24,7 @@
 - Dependency Verification erweitert. Alle 383 Hashes wurden gegen Maven Central und das
   Plugin-Portal gegengeprüft (0 Abweichungen); einzige nicht prüfbare Ausnahme ist
   `gradle-9.6.0-src.zip` (stammt von Codex, liegt nicht auf Central). Der IDE-Sync-Task
-  `prepareKotlinBuildScriptModel` läuft strikt grün (drei `-sources.jar` ergänzt).
+  `prepareKotlinBuildScriptModel` läuft strikt grün. Die IDE-Sync-Fehler wegen drei fehlender `-sources.jar` (jspecify, kotlin-reflect, kotlin-stdlib) wurden erst nach einem Maintainer-Hinweis behoben: Hashes selbst berechnet und gegen das veröffentlichte Maven-Central-SHA-1 geprüft.
 - Doku: `build-logic/README.md`, `docs/adr/0001-build-logic-conventions.md`, Modul-READMEs,
   Root-README, `docs/STATUS.md`.
 
