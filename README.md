@@ -51,3 +51,10 @@ Node können während M0 mit `./gradlew :kiln-master:run` beziehungsweise
 
 Vor Beiträgen muss `AGENTS.md` vollständig gelesen werden. Sicherheit, Tests und
 Nachvollziehbarkeit haben Vorrang vor Umsetzungsgeschwindigkeit.
+
+## Sicherheit und Lizenz
+
+- Schwachstellen bitte nicht öffentlich melden, sondern wie in [`SECURITY.md`](SECURITY.md) beschrieben.
+- Lizenz: [Apache License 2.0](LICENSE).
+- KilnCloud ist ein unabhängiges Projekt und nicht mit Mojang, Microsoft, PaperMC, Velocity
+  oder BungeeCord verbunden. „Minecraft“ ist eine Marke von Mojang Studios.
