@@ -9,14 +9,14 @@ Stand: 2026-10-14
 Der Gradle-Multi-Modul-Build besitzt die ersten vier korrekt benannten Module. Java-Ziele,
 JPMS-Kapselung und minimale ausführbare Artefakte sind eingerichtet. Die Convention Plugins in
 `build-logic` erzwingen Spotless, Error Prone mit NullAway, JaCoCo (90 %), SpotBugs mit FindSecBugs,
-Javadoc ohne Warnungen und strikte Dependency Verification (SHA-256). CI, PIT, japicmp und die
+Javadoc ohne Warnungen und strikte Dependency Verification (SHA-256). PIT, japicmp und die
 PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 
 ## Modulübersicht
 
 | Modul | Status | Fertigstellung | Funktioniert | Fehlt | Zuletzt geändert | Agent |
 |---|---|---:|---|---|---|---|
-| `build-logic` | in Arbeit | 60 % | Convention Plugins (Java 25/21, Quality, Publishing), Spotless, Error Prone + NullAway, JaCoCo 90 %, SpotBugs, Funktionstests | CI, PIT, japicmp, Signierung, PGP-Prüfung | 2026-10-14 | Claude |
+| `build-logic` | in Arbeit | 60 % | Convention Plugins (Java 25/21, Quality, Publishing), Spotless, Error Prone + NullAway, JaCoCo 90 %, SpotBugs, Funktionstests | PIT, japicmp, Signierung, PGP-Prüfung | 2026-10-14 | Claude |
 | `kiln-api` | Grundgerüst | 5 % | Java-21-JAR, JPMS-Export, API-Anker mit Test, Javadoc-/Sources-JAR, Maven-Publikation (ohne Ziel) | Fachliche Verträge, japicmp, API-Doku | 2026-10-14 | Codex |
 | `kiln-protocol` | nicht begonnen | 0 % | – | Protobuf-Verträge und Build | – | – |
 | `kiln-common` | Grundgerüst | 3 % | Gekapseltes Java-25-JPMS-Modul | Validierung, Crypto, Config, JSpecify und Tests | 2026-10-14 | Codex |
@@ -44,8 +44,7 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 
 | Agent | Roadmap-Eintrag | Bereich | Branch | Stand |
 |---|---|---|---|---|
-| Codex | Gradle-Grundgerüst und Modulstruktur vervollständigen | Projektstruktur | `codex/feat/gradle-foundation` | Reviewbereit; unabhängiges Security-Nachreview erteilt Freigabe |
-| Claude | Convention Plugins und Qualitätswerkzeuge einrichten | build-logic | `claude/feat/build-logic` | Umgesetzt, Security-Review und Maintainer-Review offen |
+| Claude | CI-Pipeline (GitHub Actions) mit strikter Dependency Verification | CI | `claude/feat/ci-pipeline` | Workflow und Cache-Unabhängigkeit umgesetzt; Lauf auf GitHub steht aus |
 
 ## Bekannte Probleme und Risiken
 
@@ -53,7 +52,7 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
   vollständiger Qualitätsnachweis. `@NullMarked` je Paket wird nur über NullAway-`AnnotatedPackages` abgedeckt.
 - Gradle Dependency Verification läuft strikt mit SHA-256-Metadaten; PGP-Signaturprüfung ist noch
   nicht aktiviert.
-- Eine CI-Pipeline fehlt.
+- Die CI-Pipeline (`.github/workflows/build.yml`) ist angelegt, ihr erster Lauf auf GitHub ist noch nicht bestätigt.
 - `docs/reference/FontConverter.java` fehlt im Repository. Die spätere M7-Implementierung darf
   ohne diese Wahrheitsquelle nicht begonnen werden.
 - `gradlew clean` kann lokal scheitern, solange ein fremder Windows-Prozess
@@ -63,8 +62,8 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 
 ## Nächste Schritte
 
-1. Review und Merge des Branches `codex/feat/gradle-foundation` durch den Maintainer.
-2. Review und Merge von `claude/feat/build-logic` (baut auf dem Codex-Branch auf).
-3. CI-Pipeline (strikte Verification, `build`, SpotBugs) sowie PIT und japicmp ergänzen.
-4. `kiln-common` mit validierten Werttypen und vollständigen Tests beginnen.
+1. Ersten GitHub-Actions-Lauf prüfen und die Pipeline als Pflicht-Check für `main` einrichten (Maintainer).
+2. `kiln-common` mit validierten Werttypen und vollständigen Tests beginnen (Codex).
+3. PIT und japicmp ergänzen; PGP-Signaturprüfung der Abhängigkeiten.
+4. `@NullMarked`-Regel und Test-Bibliotheken (AssertJ, Mockito, Awaitility) in die Konventionen aufnehmen.
 5. Fehlende Referenz `docs/reference/FontConverter.java` vor M7 bereitstellen.
