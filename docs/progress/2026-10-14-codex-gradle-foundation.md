@@ -41,13 +41,14 @@ Betroffene Dateien sind insbesondere die Root-Gradle-Dateien, `.gitignore`, `.gi
 - Unabhängiges Security-Review: drei mittlere Supply-Chain-Befunde, anschließend behoben
 - SpotBugs/FindSecBugs: API, Master und Node ohne Befund; Common enthält noch keinen
   analysierbaren Produktionscode und wird bis dahin explizit als leer erkannt
+- Frischer temporärer Checkout: `clean build spotbugsMain spotbugsTest` mit strikt erzwungener
+  Dependency Verification erfolgreich; Checkout danach sicher entfernt
+- Unabhängiges Security-Nachreview: **Freigabe**, keine verbleibenden Sicherheitsbefunde
 
 ## Offen
 
-- Security-Nachreview der behobenen Befunde durchführen.
-- Vollständigen Abschlussbuild in einem frischen Checkout ausführen, da der aktive Workspace durch
-  einen externen Windows-Dateilock auf alten Build-Ausgaben beeinträchtigt ist.
-- Feature-Branch pushen und Commit im Notion-Eintrag verlinken.
+- Keine offenen Punkte innerhalb des beanspruchten Roadmap-Eintrags.
+- Review und Merge liegen beim Maintainer; Folgearbeiten bleiben getrennte M0-Einträge.
 - Die übrigen M0-Pakete bleiben eigenständige Roadmap-Aufgaben.
 
 ## Entscheidungen

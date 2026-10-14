@@ -44,7 +44,7 @@ Sicherheits-Gates aktiv; M0 ist dennoch nicht funktionsfähig abgeschlossen.
 
 | Agent | Roadmap-Eintrag | Bereich | Branch | Stand |
 |---|---|---|---|---|
-| Codex | Gradle-Grundgerüst und Modulstruktur vervollständigen | Projektstruktur | `codex/feat/gradle-foundation` | Implementiert; Abschlussprüfungen und Security-Review laufen |
+| Codex | Gradle-Grundgerüst und Modulstruktur vervollständigen | Projektstruktur | `codex/feat/gradle-foundation` | Reviewbereit; unabhängiges Security-Nachreview erteilt Freigabe |
 
 ## Bekannte Probleme und Risiken
 
@@ -62,7 +62,7 @@ Sicherheits-Gates aktiv; M0 ist dennoch nicht funktionsfähig abgeschlossen.
 
 ## Nächste Schritte
 
-1. Security-Fixes in einem unabhängigen Nachreview bestätigen und das Grundgerüst übergeben.
+1. Review und Merge des Branches `codex/feat/gradle-foundation` durch den Maintainer.
 2. Convention Plugins und verpflichtende Qualitätswerkzeuge in `build-logic` einrichten.
 3. CI-Pipeline für vollständige Builds und Sicherheitsprüfungen ergänzen.
 4. `kiln-common` mit validierten Werttypen und vollständigen Tests beginnen.
