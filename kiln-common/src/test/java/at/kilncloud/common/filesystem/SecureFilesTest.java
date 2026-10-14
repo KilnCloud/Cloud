@@ -103,6 +103,7 @@ final class SecureFilesTest {
         assertThrows(NullPointerException.class, () -> SecureFiles.readBounded(null, 16));
         assertThrows(IllegalArgumentException.class, () -> SecureFiles.readBounded(file, 0));
         assertThrows(IllegalArgumentException.class, () -> SecureFiles.readBounded(file, -1));
+        assertThrows(IllegalArgumentException.class, () -> SecureFiles.readBounded(file, Integer.MAX_VALUE));
     }
 
     @Test
