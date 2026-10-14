@@ -167,4 +167,49 @@ final class PkiFilesTest {
         assertThrows(NullPointerException.class, () -> PkiFiles.readPrivateKey(null));
         assertThrows(NullPointerException.class, () -> PkiFiles.writeAuthority(null, file, file, true));
     }
+
+    @Test
+    @DisplayName("readIdentity lädt eine zusammengehörige Identität")
+    void readIdentity_loadsMatchingIdentity() throws IOException {
+        IssuedCertificate issued = authority.issueClient(new NodeName("node-1"), Duration.ofDays(1));
+        Path certificate = dir.resolve("node.crt");
+        Path key = dir.resolve("node.key");
+        Path ca = dir.resolve("ca.crt");
+        PkiFiles.writeCertificate(issued.certificate(), certificate);
+        PkiFiles.writePrivateKey(issued.privateKey(), key, true);
+        PkiFiles.writeCertificate(authority.certificate(), ca);
+        IssuedCertificate loaded = PkiFiles.readIdentity(certificate, key, ca);
+        assertEquals(issued.certificate(), loaded.certificate());
+        assertEquals(authority.certificate(), loaded.authority());
+    }
+
+    @Test
+    @DisplayName("readIdentity lehnt einen Schlüssel ab, der nicht zum Zertifikat gehört")
+    void readIdentity_rejectsKeyOfAnotherCertificate() throws IOException {
+        IssuedCertificate first = authority.issueClient(new NodeName("node-1"), Duration.ofDays(1));
+        IssuedCertificate second = authority.issueClient(new NodeName("node-2"), Duration.ofDays(1));
+        Path certificate = dir.resolve("node.crt");
+        Path key = dir.resolve("node.key");
+        Path ca = dir.resolve("ca.crt");
+        PkiFiles.writeCertificate(first.certificate(), certificate);
+        PkiFiles.writePrivateKey(second.privateKey(), key, true);
+        PkiFiles.writeCertificate(authority.certificate(), ca);
+        IOException failure = assertThrows(IOException.class, () -> PkiFiles.readIdentity(certificate, key, ca));
+        assertEquals("pki.identity.key-mismatch", failure.getMessage());
+    }
+
+    @Test
+    @DisplayName("readIdentity lehnt ein Zertifikat ab, das eine andere CA ausgestellt hat")
+    void readIdentity_rejectsCertificateOfAnotherAuthority() throws IOException {
+        CertificateAuthority other = CertificateAuthority.create("Other CA", Duration.ofDays(30), clock);
+        IssuedCertificate issued = other.issueClient(new NodeName("node-1"), Duration.ofDays(1));
+        Path certificate = dir.resolve("node.crt");
+        Path key = dir.resolve("node.key");
+        Path ca = dir.resolve("ca.crt");
+        PkiFiles.writeCertificate(issued.certificate(), certificate);
+        PkiFiles.writePrivateKey(issued.privateKey(), key, true);
+        PkiFiles.writeCertificate(authority.certificate(), ca);
+        IOException failure = assertThrows(IOException.class, () -> PkiFiles.readIdentity(certificate, key, ca));
+        assertEquals("pki.identity.not-issued-by-authority", failure.getMessage());
+    }
 }

@@ -256,7 +256,7 @@ public final class CertificateAuthority {
         return new GeneralNames(names.toArray(new GeneralName[0]));
     }
 
-    private static boolean keyMatches(X509Certificate certificate, PrivateKey privateKey) {
+    static boolean keyMatches(X509Certificate certificate, PrivateKey privateKey) {
         try {
             byte[] challenge = new byte[32];
             RANDOM.nextBytes(challenge);

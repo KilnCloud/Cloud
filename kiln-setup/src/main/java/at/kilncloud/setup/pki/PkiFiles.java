@@ -155,6 +155,37 @@ public final class PkiFiles {
         return CertificateAuthority.restore(readCertificate(certificateFile), readPrivateKey(keyFile), clock);
     }
 
+    /**
+     * Loads an identity (certificate, key and issuing authority) from files and checks it.
+     *
+     * <p>Two checks protect against mixed-up files: the private key must belong to the certificate,
+     * and the certificate must have been signed by the given authority. Expiry is not checked here;
+     * the TLS handshake and {@link CertificateRotation} handle that.
+     *
+     * @param certificateFile the identity certificate
+     * @param keyFile the private key of the identity
+     * @param authorityFile the certificate of the issuing authority
+     * @return the checked identity
+     * @throws NullPointerException if an argument is {@code null}
+     * @throws IOException if a file cannot be read or parsed, the key does not match the certificate,
+     *     or the authority did not sign the certificate
+     */
+    public static IssuedCertificate readIdentity(Path certificateFile, Path keyFile, Path authorityFile)
+            throws IOException {
+        X509Certificate certificate = readCertificate(certificateFile);
+        PrivateKey key = readPrivateKey(keyFile);
+        X509Certificate authority = readCertificate(authorityFile);
+        if (!CertificateAuthority.keyMatches(certificate, key)) {
+            throw new IOException("pki.identity.key-mismatch");
+        }
+        try {
+            certificate.verify(authority.getPublicKey());
+        } catch (GeneralSecurityException failure) {
+            throw new IOException("pki.identity.not-issued-by-authority");
+        }
+        return new IssuedCertificate(certificate, key, authority);
+    }
+
     private static byte[] pem(String type, byte[] der) throws IOException {
         StringWriter text = new StringWriter();
         try (PemWriter writer = new PemWriter(text)) {
