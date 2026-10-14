@@ -21,6 +21,8 @@ dependencies {
     add("errorprone", libs.findLibrary("nullaway").get())
     // Nullness annotations (@NullMarked, @Nullable) for modules; not a runtime dependency.
     add("compileOnly", libs.findLibrary("jspecify").get())
+    // Libraries such as gRPC reference these annotations; without them javac warns (-Werror).
+    add("compileOnly", libs.findLibrary("errorprone-annotations").get())
 }
 
 // --- Formatting: Palantir Java Format via Spotless (AGENTS.md §15) ---

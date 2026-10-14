@@ -21,7 +21,7 @@ PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig,
 | `kiln-protocol` | Grundgerüst | 15 % | Protobuf-/gRPC-Build, Vertrag `NodeControl` (Register mit Version und Join-Token, Heartbeat), Versionsregel, sicheres Logging, Wire-Contract-Tests | Weitere Verträge (Serverstart/-stopp, Terminal, Kapazität) | 2026-10-14 | Claude |
 | `kiln-common` | in Arbeit | 35 % | Validierte Server-/Templatenamen, sichere Auflösung existierender Pfade, sichere Token-Erzeugung und konstanter Vergleich; JPMS/JSpecify; 96 % Line-/95 % Branch-Coverage; TOCTOU-sicheres Lesen/Schreiben, strikte JSON-Konfiguration | Weitere gemeinsame Utilities nach Bedarf von M1 | 2026-10-14 | Codex, Claude |
 | `kiln-storage` | nicht begonnen | 0 % | – | Datei- und Datenbank-Backends, Migrationen und Tests | – | – |
-| `kiln-master` | Grundgerüst | 2 % | Ausführbares Java-25-Modul und Einstiegspunkt-Test | Gesamte M1+-Funktionalität | 2026-10-14 | Codex |
+| `kiln-master` | Grundgerüst | 20 % | gRPC-Server mit mTLS, Node-Registrierung (Zertifikats-Identität + Join-Token), Heartbeat mit Replay-Schutz, Node-Registry, append-only Audit-Log, strikte Konfiguration; echte mTLS-Integrationstests | Scheduling, Templates, Prozessverwaltung, Terminal, REST/WS-API, Persistenz (M4) | 2026-10-14 | Claude |
 | `kiln-node` | Grundgerüst | 2 % | Ausführbares Java-25-Modul und Einstiegspunkt-Test | Gesamte M1+-Funktionalität | 2026-10-14 | Codex |
 | `kiln-memory` | nicht begonnen | 0 % | – | Budgets, cgroups v2 und Überbuchungsschutz | – | – |
 | `kiln-launcher` | nicht begonnen | 0 % | – | Signaturprüfung und Prozessstart | – | – |
@@ -44,7 +44,7 @@ PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig,
 
 | Agent | Roadmap-Eintrag | Bereich | Branch | Stand |
 |---|---|---|---|---|
-| Claude | kiln-setup: Zertifikats-Bootstrap und Join-Tokens (M1, Paket 2b) | kiln-setup | `claude/feat/setup-pki` | Umgesetzt; Review offen |
+| Claude | kiln-master: Master-Kern (M1, Paket 3a) | kiln-master | `claude/feat/master-core` | Umgesetzt; Review offen |
 
 ## Bekannte Probleme und Risiken
 
