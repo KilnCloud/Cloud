@@ -11,6 +11,11 @@ java {
     withSourcesJar()
 }
 
+application {
+    mainModule = "at.kilncloud.node"
+    mainClass = "at.kilncloud.node.internal.KilnNode"
+}
+
 repositories {
     mavenCentral()
 }
@@ -37,4 +42,10 @@ tasks.withType<JavaCompile>().configureEach {
 tasks.withType<Javadoc>().configureEach {
     isFailOnError = true
     options.encoding = "UTF-8"
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = application.mainClass.get()
+    }
 }
