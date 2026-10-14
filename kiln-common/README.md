@@ -1,16 +1,24 @@
 # kiln-common
 
 `kiln-common` enthält sicherheitsrelevante, gemeinsam genutzte Hilfsfunktionen für
-KilnCloud-Prozesse. Das Modul exportiert keine Pakete und ist nicht Teil der Public API.
+KilnCloud-Prozesse. Seine eng begrenzten Exporte sind interne Infrastrukturverträge zwischen
+Cloud-Modulen und nicht Teil der öffentlichen Drittentwickler-API `kiln-api`.
 
 ## Status
 
-**Grundgerüst – 3 %:** JPMS-Kapselung, Java-25-Build und die Abhängigkeit zur Public API
-sind eingerichtet. Es existieren noch keine Utilities.
+**In Arbeit – 20 %:** JPMS-Kapselung und Java-25-Build sind eingerichtet. Validierte Namen,
+sichere Auflösung existierender Pfade sowie sichere Token-Erzeugung und -Vergleiche sind
+vollständig getestet.
 
 ## Öffentliche Schnittstellen
 
-Keine. Alle zukünftigen Implementierungen liegen in nicht exportierten `internal`-Paketen.
+- `at.kilncloud.common.validation.ServerName`
+- `at.kilncloud.common.validation.TemplateName`
+- `at.kilncloud.common.filesystem.SecurePathResolver`
+- `at.kilncloud.common.security.SecureTokens`
+
+Das exportierte Paket ist nur für Cloud-Module bestimmt. Fachliche Kommunikation erfolgt
+weiterhin ausschließlich über `kiln-api` und `kiln-protocol` (ADR 0002).
 
 ## Abhängigkeiten
 
@@ -21,9 +29,10 @@ Keine. Alle zukünftigen Implementierungen liegen in nicht exportierten `interna
 
 - Kompiliert und erzeugt Bytecode mit Java 25 über `kiln.java-cloud` und `kiln.quality` (siehe `build-logic`)
 - Erzeugt Binär-, Quellen- und Javadoc-JARs
+- Alle Pakete sind mit JSpecify `@NullMarked` markiert
 
 ## Offene Punkte
 
-- Validierte Werttypen und sichere Konfigurationsbasis implementieren
-- Crypto- und Dateisystem-Hilfen nur zusammen mit dedizierten Sicherheitstests ergänzen
-- JSpecify und die M0-Qualitätswerkzeuge aktivieren
+- Sichere Konfigurationsbasis in einem getrennten Arbeitspaket planen
+- TOCTOU-sichere Dateioperationen auf Basis validierter Pfade ergänzen, sobald konkrete
+  Schreib-/Leseabläufe entstehen
