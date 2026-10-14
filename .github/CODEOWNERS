@@ -1,0 +1,10 @@
+# Code-Eigentümer (werden automatisch als Reviewer vorgeschlagen).
+# Sicherheitskritische und gemeinsame Dateien erfordern die Prüfung des Maintainers (AGENTS.md §6).
+*                                  @Marcel1911
+/AGENTS.md                         @Marcel1911
+/SECURITY.md                       @Marcel1911
+/.github/                          @Marcel1911
+/build-logic/                      @Marcel1911
+/gradle/verification-metadata.xml  @Marcel1911
+/gradle/libs.versions.toml         @Marcel1911
+/settings.gradle.kts               @Marcel1911
