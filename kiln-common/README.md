@@ -19,7 +19,7 @@ Keine. Alle zukünftigen Implementierungen liegen in nicht exportierten `interna
 
 ## Konfiguration
 
-- Kompiliert und erzeugt Bytecode mit Java 25
+- Kompiliert und erzeugt Bytecode mit Java 25 über `kiln.java-cloud` und `kiln.quality` (siehe `build-logic`)
 - Erzeugt Binär-, Quellen- und Javadoc-JARs
 
 ## Offene Punkte

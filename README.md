@@ -6,6 +6,7 @@ geeignet.
 
 ## Aktueller Umfang
 
+- `build-logic`: Convention Plugins und Qualitätswerkzeuge ([README](build-logic/README.md))
 - `kiln-api`: öffentliche, Java-21-kompatible API-Basis
 - `kiln-common`: gekapselte gemeinsame Implementierungsbasis
 - `kiln-master`: minimaler, nebenwirkungsfreier Master-Einstiegspunkt
@@ -32,6 +33,9 @@ Unter Linux oder macOS:
 ```bash
 ./gradlew build
 ```
+
+`./gradlew spotlessApply` formatiert den Code; `./gradlew build` führt Tests, Coverage-Gates, Error Prone/NullAway,
+SpotBugs/FindSecBugs und Spotless aus.
 
 Einzelne Module lassen sich beispielsweise mit `./gradlew :kiln-api:build` bauen. Master und
 Node können während M0 mit `./gradlew :kiln-master:run` beziehungsweise

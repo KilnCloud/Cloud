@@ -6,7 +6,7 @@ Kompatibilität mit unterstützten Minecraft-Plattformen als Java-21-Bytecode ge
 
 ## Status
 
-**Grundgerüst – 5 %:** Der JPMS-Moduldeskriptor, ein dokumentierter API-Anker und die
+**Grundgerüst – 5 %:** Der JPMS-Moduldeskriptor, ein dokumentierter, getesteter API-Anker und die
 Java-21-Buildkonfiguration sind vorhanden. Fachliche Verträge und Kompatibilitätsprüfungen
 folgen in späteren Meilensteinen.
 
@@ -18,11 +18,11 @@ folgen in späteren Meilensteinen.
 ## Abhängigkeiten
 
 - Keine Abhängigkeit zu anderen KilnCloud-Modulen
-- JUnit 5 ausschließlich für Tests
+- JUnit 5 ausschließlich für Tests; JSpecify nur zur Compile-Zeit
 
 ## Konfiguration
 
-- Kompiliert mit einer Java-25-Toolchain und `--release 21`
+- Kompiliert über die Plugins `kiln.java-compat`, `kiln.quality` und `kiln.publishing` (JDK-25-Toolchain, `--release 21`)
 - Erzeugt Binär-, Quellen- und Javadoc-JARs
 
 ## Offene Punkte

@@ -22,7 +22,7 @@ und `kiln-protocol`.
 
 ## Konfiguration
 
-- Kompiliert und erzeugt Bytecode mit Java 25
+- Kompiliert und erzeugt Bytecode mit Java 25 über `kiln.java-cloud` und `kiln.quality` (siehe `build-logic`)
 - Einstiegspunkt: `at.kilncloud.master.internal.KilnMaster`
 - Der M0-Einstieg greift nicht auf Netzwerk, Dateien oder Prozesse zu
 
