@@ -1,3 +1,5 @@
+package at.kilncloud.buildlogic
+
 import org.gradle.api.provider.Property
 
 /**

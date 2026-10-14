@@ -1,5 +1,7 @@
 // Shared Java conventions for every KilnCloud module (AGENTS.md §2, §3, §15).
 // Do not apply directly; use `kiln.java-cloud` or `kiln.java-compat`.
+import at.kilncloud.buildlogic.KilnJavaExtension
+
 plugins {
     `java`
 }
@@ -33,7 +35,11 @@ tasks.withType<JavaCompile>().configureEach {
 tasks.withType<Javadoc>().configureEach {
     isFailOnError = true
     options.encoding = "UTF-8"
-    (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:all", "-quiet")
+    (options as StandardJavadocDocletOptions).apply {
+        addStringOption("Xdoclint:all", "-quiet")
+        // Javadoc must run without warnings (AGENTS.md §14); doclint findings are only warnings.
+        addBooleanOption("Werror", true)
+    }
 }
 
 tasks.test {
