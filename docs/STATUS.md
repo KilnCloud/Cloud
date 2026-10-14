@@ -1,16 +1,18 @@
 # KilnCloud – Projektstatus
 
-Stand: 2026-10-14
+Stand: 2026-10-15
 
 ## Aktueller Meilenstein
 
-**M0 – Fundament, etwa 85 %; M1 hat auf Anweisung des Maintainers begonnen**
+**M0 – Fundament, funktionsfähig (PIT und japicmp zurückgestellt); M1 – Kern lokal, etwa 35 %**
 
-Der Gradle-Multi-Modul-Build besitzt die ersten vier korrekt benannten Module. Java-Ziele,
+Der Gradle-Multi-Modul-Build besitzt sechs Module (Api, Common, Protocol, Setup, Master, Node). Java-Ziele,
 JPMS-Kapselung und minimale ausführbare Artefakte sind eingerichtet. Die Convention Plugins in
 `build-logic` erzwingen Spotless, Error Prone mit NullAway, JaCoCo (90 %), SpotBugs mit FindSecBugs,
 Javadoc ohne Warnungen und strikte Dependency Verification (SHA-256). PIT, japicmp und die
-PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig, aber nicht vollständig abgeschlossen.
+PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt). Die GitHub-Actions-CI läuft grün; das Repository ist öffentlich.
+Von M1 sind `kiln-protocol` (1a), `kiln-setup` (2b) und der Master-Kern (3a) umgesetzt; es folgen der
+Node-Kern (3b), `kiln-memory` (2a), der Prozessstart (4), das Terminal (5) und Integrationstests (6).
 
 ## Modulübersicht
 
@@ -22,7 +24,7 @@ PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig,
 | `kiln-common` | in Arbeit | 35 % | Validierte Server-/Templatenamen, sichere Auflösung existierender Pfade, sichere Token-Erzeugung und konstanter Vergleich; JPMS/JSpecify; 96 % Line-/95 % Branch-Coverage; TOCTOU-sicheres Lesen/Schreiben, strikte JSON-Konfiguration | Weitere gemeinsame Utilities nach Bedarf von M1 | 2026-10-14 | Codex, Claude |
 | `kiln-storage` | nicht begonnen | 0 % | – | Datei- und Datenbank-Backends, Migrationen und Tests | – | – |
 | `kiln-master` | Grundgerüst | 20 % | gRPC-Server mit mTLS, Node-Registrierung (Zertifikats-Identität + Join-Token), Heartbeat mit Replay-Schutz, Node-Registry, append-only Audit-Log, strikte Konfiguration; echte mTLS-Integrationstests | Scheduling, Templates, Prozessverwaltung, Terminal, REST/WS-API, Persistenz (M4) | 2026-10-14 | Claude |
-| `kiln-node` | Grundgerüst | 2 % | Ausführbares Java-25-Modul und Einstiegspunkt-Test | Gesamte M1+-Funktionalität | 2026-10-14 | Codex |
+| `kiln-node` | Grundgerüst | 2 % | Ausführbares Java-25-Modul und Einstiegspunkt-Test | Node-Kern (3b), Prozessstart (4), RAM-Anbindung | 2026-10-14 | Codex |
 | `kiln-memory` | nicht begonnen | 0 % | – | Budgets, cgroups v2 und Überbuchungsschutz | – | – |
 | `kiln-launcher` | nicht begonnen | 0 % | – | Signaturprüfung und Prozessstart | – | – |
 | `kiln-terminal` | nicht begonnen | 0 % | – | Server und CLI-Client | – | – |
@@ -37,14 +39,14 @@ PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig,
 | `kiln-module-tablist` | nicht begonnen | 0 % | – | Tablist-Modul | – | – |
 | `kiln-module-motd` | nicht begonnen | 0 % | – | MOTD-Modul | – | – |
 | `kiln-module-maintenance` | nicht begonnen | 0 % | – | Wartungsmodul | – | – |
-| `kiln-module-font` | nicht begonnen | 0 % | – | FontConverter-Modul und Referenzübernahme | – | – |
+| `kiln-module-font` | nicht begonnen | 0 % | Referenz `docs/reference/FontConverter.java` (PR #16) | FontConverter-Modul (M7): Übernahme mit identischem Verhalten, Apostroph-Fix, Tests, Live-Vorschau | 2026-10-15 | – |
 | `kiln-web` | nicht begonnen | 0 % | – | Gesamtes Webinterface | – | – |
 
 ## Gerade in Arbeit
 
 | Agent | Roadmap-Eintrag | Bereich | Branch | Stand |
 |---|---|---|---|---|
-| Claude | kiln-master: Master-Kern (M1, Paket 3a) | kiln-master | `claude/feat/master-core` | Umgesetzt; Review offen |
+| Claude | kiln-node: Node-Kern (M1, Paket 3b) und Entwickler-Werkzeug für Zertifikate und Tokens | kiln-node, kiln-setup | – | In Planung |
 
 ## Bekannte Probleme und Risiken
 
@@ -52,9 +54,11 @@ PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig,
   vollständiger Qualitätsnachweis.
 - Gradle Dependency Verification läuft strikt mit SHA-256-Metadaten; PGP-Signaturprüfung ist noch
   nicht aktiviert.
-- Die CI-Pipeline (`.github/workflows/build.yml`) ist angelegt, ihr erster Lauf auf GitHub ist noch nicht bestätigt.
-- `docs/reference/FontConverter.java` fehlt im Repository. Die spätere M7-Implementierung darf
-  ohne diese Wahrheitsquelle nicht begonnen werden.
+- Die CI läuft grün; ein Branch-Schutz für `main` mit dem Pflicht-Check `build` ist noch nicht eingerichtet (Maintainer).
+- `docs/reference/FontConverter.java` ist die Wahrheitsquelle für M7 (PR #16). Die Übernahme muss das
+  Verhalten identisch halten und die bekannte Schwäche beheben: Ein Apostroph in einem unquotierten
+  Tag-Argument (z. B. in einer URL) schaltet den Quote-Modus ein und lässt den Rest des Textes
+  unkonvertiert.
 - `gradlew clean` kann lokal scheitern, solange ein fremder Windows-Prozess
   `build/reports/problems` geöffnet hält. Der normale Build ist davon nicht betroffen.
 - Gradle 9.6.0 meldet unter Java 25 einen Native-Access-Hinweis aus seiner eingebetteten
@@ -62,8 +66,9 @@ PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig,
 
 ## Nächste Schritte
 
-1. Ersten GitHub-Actions-Lauf prüfen und die Pipeline als Pflicht-Check für `main` einrichten (Maintainer).
-2. `kiln-common` mit validierten Werttypen und vollständigen Tests beginnen (Codex).
-3. PIT und japicmp ergänzen; PGP-Signaturprüfung der Abhängigkeiten.
-4. Test-Bibliotheken (AssertJ, Mockito, Awaitility) in die Konventionen aufnehmen, sobald ein Modul sie braucht.
-5. Fehlende Referenz `docs/reference/FontConverter.java` vor M7 bereitstellen.
+1. Branch-Schutz für `main` mit Pflicht-Check `build`, Secret Scanning und CodeQL einrichten (Maintainer).
+2. M1: Node-Kern (3b) mit einem Entwickler-Werkzeug für CA, Zertifikate und Join-Tokens, damit Master und
+   Node lokal ausprobiert werden können.
+3. M1: `kiln-memory` (2a), Prozessstart (4), Terminal (5) und Integrationstests (6).
+4. PIT und japicmp ergänzen; Test-Bibliotheken (AssertJ, Mockito, Awaitility) aufnehmen, sobald ein Modul sie braucht.
+5. Release-Workflow (Tag, SBOM, Prüfsummen, Provenance) nach dem Abschluss von M1.
