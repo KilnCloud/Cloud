@@ -19,7 +19,7 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 | `build-logic` | in Arbeit | 60 % | Convention Plugins (Java 25/21, Quality, Publishing), Spotless, Error Prone + NullAway, JaCoCo 90 %, SpotBugs, Funktionstests | PIT, japicmp, Signierung, PGP-Prüfung | 2026-10-14 | Claude |
 | `kiln-api` | Grundgerüst | 5 % | Java-21-JAR, JPMS-Export, API-Anker mit Test, Javadoc-/Sources-JAR, Maven-Publikation (ohne Ziel) | Fachliche Verträge, japicmp, API-Doku | 2026-10-14 | Codex |
 | `kiln-protocol` | nicht begonnen | 0 % | – | Protobuf-Verträge und Build | – | – |
-| `kiln-common` | Grundgerüst | 3 % | Gekapseltes Java-25-JPMS-Modul | Validierung, Crypto, Config, JSpecify und Tests | 2026-10-14 | Codex |
+| `kiln-common` | in Arbeit | 20 % | Validierte Server-/Templatenamen, sichere Auflösung existierender Pfade, sichere Token-Erzeugung und konstanter Vergleich; JPMS/JSpecify; 96 % Line-/95 % Branch-Coverage | Sichere Konfigurationsbasis, TOCTOU-sichere Dateioperationen und weitere gemeinsame Utilities | 2026-10-14 | Codex |
 | `kiln-storage` | nicht begonnen | 0 % | – | Datei- und Datenbank-Backends, Migrationen und Tests | – | – |
 | `kiln-master` | Grundgerüst | 2 % | Ausführbares Java-25-Modul und Einstiegspunkt-Test | Gesamte M1+-Funktionalität | 2026-10-14 | Codex |
 | `kiln-node` | Grundgerüst | 2 % | Ausführbares Java-25-Modul und Einstiegspunkt-Test | Gesamte M1+-Funktionalität | 2026-10-14 | Codex |
@@ -45,6 +45,7 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 | Agent | Roadmap-Eintrag | Bereich | Branch | Stand |
 |---|---|---|---|---|
 | Claude | CI-Pipeline (GitHub Actions) mit strikter Dependency Verification | CI | `claude/feat/ci-pipeline` | Workflow und Cache-Unabhängigkeit umgesetzt; Lauf auf GitHub steht aus |
+| Codex | kiln-common Grundgerüst implementieren | `kiln-common` | `codex/feat/common-foundation` | Code und Modul-Gates abgeschlossen; Security-Review und Abschlussdokumentation laufen |
 
 ## Bekannte Probleme und Risiken
 
