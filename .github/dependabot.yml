@@ -1,0 +1,20 @@
+# Dependabot version updates, bewusst nur für GitHub Actions.
+#
+# Die Actions sind per Commit-SHA gepinnt (AGENTS.md §7.7); Dependabot aktualisiert SHA und
+# Versionskommentar gemeinsam. Für Gradle gibt es absichtlich keine automatischen Updates: Jede neue
+# Abhängigkeit braucht Einträge in gradle/verification-metadata.xml, die Dependabot nicht pflegt,
+# und sie müssen von Hand gegen die Originalquelle geprüft werden. Sicherheitsmeldungen für
+# Gradle-Abhängigkeiten liefern die Dependabot alerts (Repository-Einstellungen).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "ci"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
