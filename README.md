@@ -12,6 +12,7 @@ geeignet.
 - `kiln-master`: minimaler, nebenwirkungsfreier Master-Einstiegspunkt
 - `kiln-node`: minimaler, nebenwirkungsfreier Node-Einstiegspunkt
 - `kiln-protocol`: Wire-Verträge (Protobuf/gRPC) zwischen Master, Nodes und Bridges
+- `kiln-setup`: Zertifizierungsstelle, mTLS-Identitäten und Join-Tokens
 
 Alle weiteren Module aus der Zielarchitektur werden in der in `AGENTS.md` festgelegten
 Meilensteinreihenfolge ergänzt.

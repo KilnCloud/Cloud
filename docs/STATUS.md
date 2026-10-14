@@ -26,7 +26,7 @@ PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig,
 | `kiln-memory` | nicht begonnen | 0 % | – | Budgets, cgroups v2 und Überbuchungsschutz | – | – |
 | `kiln-launcher` | nicht begonnen | 0 % | – | Signaturprüfung und Prozessstart | – | – |
 | `kiln-terminal` | nicht begonnen | 0 % | – | Server und CLI-Client | – | – |
-| `kiln-setup` | nicht begonnen | 0 % | – | Easy Setup, Zertifikate, Join-Tokens und Datenbank | – | – |
+| `kiln-setup` | Grundgerüst | 20 % | CA, Client-/Server-Zertifikate (EC P-256), PEM-Dateien mit Rechten 600, TLS-1.3-Kontexte (mTLS), Rotationsprüfung, einmalige Join-Tokens; echte Handshake-Tests | Interaktiver Easy-Setup-Ablauf, Datenbank-Setup, persistente Token-Ablage (M4) | 2026-10-14 | Claude |
 | `kiln-versions` | nicht begonnen | 0 % | – | Generator, Schema und `download.json` | – | – |
 | `kiln-i18n` | nicht begonnen | 0 % | – | Sprachdateien, Locale und Fallbacks | – | – |
 | `kiln-bridge-paper` | nicht begonnen | 0 % | – | Paper-Bridge | – | – |
@@ -44,7 +44,7 @@ PGP-Prüfung fehlen noch (Backlog bzw. zurückgestellt); M0 ist funktionsfähig,
 
 | Agent | Roadmap-Eintrag | Bereich | Branch | Stand |
 |---|---|---|---|---|
-| Claude | kiln-protocol: Modul, Protobuf-Build und Handshake-Vertrag (M1, Paket 1a) | kiln-protocol | `claude/feat/protocol-foundation` | Umgesetzt; Review offen |
+| Claude | kiln-setup: Zertifikats-Bootstrap und Join-Tokens (M1, Paket 2b) | kiln-setup | `claude/feat/setup-pki` | Umgesetzt; Review offen |
 
 ## Bekannte Probleme und Risiken
 
