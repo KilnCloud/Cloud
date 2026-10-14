@@ -39,12 +39,14 @@ in `gradle/verification-metadata.xml` per SHA-256 gebunden.
 ## Tests
 
 `./gradlew :build-logic:test` startet TestKit-Funktionstests: Jedes Gate wird gegen ein
-Wegwerf-Projekt mit absichtlicher Verletzung geprüft und muss fehlschlagen. Die Tests laufen
-offline gegen das echte Gradle-User-Home.
+Wegwerf-Projekt mit absichtlicher Verletzung geprüft und muss fehlschlagen. Die Fixtures nutzen
+denselben Versionskatalog und dieselbe strikte Dependency Verification wie der echte Build; Artefakte
+kommen von Maven Central und müssen den gepinnten SHA-256-Werten entsprechen. Ein Aufruf mit leerem
+Gradle-User-Home funktioniert daher ohne vorherigen Modul-Build.
 
 ## Offene Punkte
 
-- CI-Pipeline, PIT, japicmp, Awaitility/Mockito/Testcontainers-Konventionen (Backlog)
+- PIT, japicmp, Awaitility/Mockito/Testcontainers-Konventionen (Backlog)
 - Signierte Artefakte (M8) und PGP-Signaturprüfung der Abhängigkeiten
 - Fachliche JSpecify-`@NullMarked`-Prüfung per Regel statt nur über `AnnotatedPackages`
 - Kotlin-Formatierung der Build-Skripte

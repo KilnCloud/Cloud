@@ -16,8 +16,9 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    // Functional tests resolve dependencies offline from the real Gradle user home, i.e. from the
-    // artifacts that dependency verification already approved for this build.
+    // Functional tests resolve dependencies like the real build: from Maven Central, verified against
+    // the pinned hashes in gradle/verification-metadata.xml. The Gradle user home is only a cache.
     systemProperty("kiln.gradleUserHome", gradle.gradleUserHomeDir.absolutePath)
     systemProperty("kiln.versionCatalog", rootDir.resolve("../gradle/libs.versions.toml").canonicalPath)
+    systemProperty("kiln.verificationMetadata", rootDir.resolve("../gradle/verification-metadata.xml").canonicalPath)
 }
