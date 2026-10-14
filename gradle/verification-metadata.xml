@@ -882,6 +882,78 @@
             <sha256 value="e6319c38623f7ffa8c0b231afe14bd3786618ecdb1dc7c10f900f5d7106f85fe" origin="Cross-checked against Maven Central sha1"/>
          </artifact>
       </component>
+      <component group="org.apache.groovy" name="groovy-ant" version="4.0.32">
+         <artifact name="groovy-ant-4.0.32-sources.jar">
+            <sha256 value="e11872c12d18c2f752d059bd8caaf2961b0982f0b3366aa0461396445a059aa7" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-ant-4.0.32.module">
+            <sha256 value="e28d712ddaf29ca55f42a18d63cb593aedf21f94ca1afaba7ab5d996ad04ae49" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
+      <component group="org.apache.groovy" name="groovy-astbuilder" version="4.0.32">
+         <artifact name="groovy-astbuilder-4.0.32-sources.jar">
+            <sha256 value="0a643c65fb75a516fea1ecedee82f87d06c753d94524ab3eeda3b6af90d3936c" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-astbuilder-4.0.32.module">
+            <sha256 value="cbd2542682b41eba98fef6eab1408563eb011554e9de38b170112d7c2025c1b8" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
+      <component group="org.apache.groovy" name="groovy-datetime" version="4.0.32">
+         <artifact name="groovy-datetime-4.0.32-sources.jar">
+            <sha256 value="6c61f52b8a370e7d688f373b02ad56a380caa76c785a765d3968fd11ce7dc369" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-datetime-4.0.32.module">
+            <sha256 value="4eadcb6948912a15dc46e41229b9d86a1ef807233bca5f28864733cd0f5fc28e" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
+      <component group="org.apache.groovy" name="groovy-dateutil" version="4.0.32">
+         <artifact name="groovy-dateutil-4.0.32-sources.jar">
+            <sha256 value="37dd8bbdb259fc7e6b38246778a20d0a77d016c5e041a6cd7cab183fcb80febe" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-dateutil-4.0.32.module">
+            <sha256 value="002bc62612cb8338b36c95253e0b4d2d0113a3204faed16d628123874d230d05" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
+      <component group="org.apache.groovy" name="groovy-groovydoc" version="4.0.32">
+         <artifact name="groovy-groovydoc-4.0.32-sources.jar">
+            <sha256 value="78b4058e64d00983a728c12cefedeab8127d4a73f5a59af38c6f12e4fef34640" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-groovydoc-4.0.32.module">
+            <sha256 value="34028862aee0c613a6621dd76fc772948173350998b4985ad7f7691573c817f6" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
+      <component group="org.apache.groovy" name="groovy-json" version="4.0.32">
+         <artifact name="groovy-json-4.0.32-sources.jar">
+            <sha256 value="5f9787ac44ff794e704e1facef6a26b7d1d8db9771658f5b240de2e05bf0fbae" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-json-4.0.32.module">
+            <sha256 value="27a550ad351c2889ae6e62a8351db1c38f3275a10f21210fd0088e5f9484b4b1" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
+      <component group="org.apache.groovy" name="groovy-nio" version="4.0.32">
+         <artifact name="groovy-nio-4.0.32-sources.jar">
+            <sha256 value="2521e795fcd2e3533f705249aa6b7e66601b8224f8485811460048cc635a8002" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-nio-4.0.32.module">
+            <sha256 value="cfaf468115fdc69a77811a866bd6f4ad5f484495ccb8eede3a45b20e351bf0af" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
+      <component group="org.apache.groovy" name="groovy-templates" version="4.0.32">
+         <artifact name="groovy-templates-4.0.32-sources.jar">
+            <sha256 value="e1b9ada6cb51ed29b029ac98d434c3d83b63386e13b9bc8d9a43250271d68c72" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-templates-4.0.32.module">
+            <sha256 value="d5de06eaa56c56b0ea45d5230f5ad31f728fe4cc2e9564ba14573d2ea3aa5c88" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
+      <component group="org.apache.groovy" name="groovy-xml" version="4.0.32">
+         <artifact name="groovy-xml-4.0.32-sources.jar">
+            <sha256 value="ec0937eb967760713de4cf2f1e493b735a24ea219d10c20ce5a8d2b708de9bea" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+         <artifact name="groovy-xml-4.0.32.module">
+            <sha256 value="fdd9f774c4efbff8530dc4e5efd9502d5035a96116ae0c9eef88426dab45db3d" origin="Cross-checked against Maven Central sha1"/>
+         </artifact>
+      </component>
       <component group="org.apache.logging.log4j" name="log4j" version="2.26.1">
          <artifact name="log4j-2.26.1.pom">
             <sha256 value="ea4705725fd94bf5debe2911d4ea7af20898603f68354e64b2461a0f249e445d" origin="Generated by Gradle"/>
