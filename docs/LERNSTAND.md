@@ -1,4 +1,9 @@
-# Aktuelle Stufe
+# Historischer Lernstand
+
+> Diese Datei dokumentiert die ersten manuellen Gradle-Lernschritte. Der verbindliche aktuelle
+> Projektstand steht in [`STATUS.md`](STATUS.md), geplante Arbeit in der Notion-Roadmap.
+
+## Aktuelle Stufe zum Zeitpunkt der Notiz
 
 L1 – Gradle Multi-Modul, Projektstruktur und Version Catalog
 

@@ -1,5 +1,18 @@
-rootProject.name = "Cloud"
-include("api")
-include("common")
-include("master")
-include("node")
+pluginManagement {
+    // Convention plugins (build-logic) are resolved from the included build, never from a registry.
+    includeBuild("build-logic")
+}
+
+dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    repositories {
+        mavenCentral()
+    }
+}
+
+rootProject.name = "KilnCloud"
+
+include("kiln-api")
+include("kiln-common")
+include("kiln-master")
+include("kiln-node")
