@@ -45,7 +45,6 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 | Agent | Roadmap-Eintrag | Bereich | Branch | Stand |
 |---|---|---|---|---|
 | Claude | CI-Pipeline (GitHub Actions) mit strikter Dependency Verification | CI | `claude/feat/ci-pipeline` | Workflow und Cache-Unabhängigkeit umgesetzt; Lauf auf GitHub steht aus |
-| Codex | kiln-common Grundgerüst implementieren | `kiln-common` | `codex/feat/common-foundation` | Code und Modul-Gates abgeschlossen; Security-Review und Abschlussdokumentation laufen |
 
 ## Bekannte Probleme und Risiken
 

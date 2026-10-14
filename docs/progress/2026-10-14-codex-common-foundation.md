@@ -35,15 +35,16 @@ diesem Session-Eintrag. Gemeinsame Build-Dateien wurden nicht geändert.
 - `:kiln-common:spotlessApply` ausgeführt
 - `:kiln-common:build :kiln-common:spotbugsMain :kiln-common:spotbugsTest
   --dependency-verification strict --warning-mode all` erfolgreich
+- Root-Gate `build spotbugsMain spotbugsTest --dependency-verification strict --warning-mode all`
+  erfolgreich (75 Tasks)
 - JaCoCo: 96 % Line Coverage, 95 % Branch Coverage auf Modulebene
 - Error Prone/NullAway: ohne Befund
 - Javadoc mit Doclint/Werror: ohne Befund
 - SpotBugs/FindSecBugs: ohne Befund
-- Unabhängiges Security-Review: noch ausstehend
+- Unabhängiges Security-Review im getrennten Thread: **Freigabe**, keine offenen Befunde
 
 ## Offen
 
-- Der verpflichtende Security-Review in einem getrennten Codex-Thread steht noch aus.
 - Eine sichere Konfigurationsbasis und TOCTOU-sichere konkrete Dateioperationen bleiben getrennte
   Folgearbeiten; der Resolver dokumentiert die Grenze seiner Zeitpunktprüfung ausdrücklich.
 - Der Branch bleibt lokal und wird gemäß Maintainer-Vorgabe nicht gepusht.
@@ -73,6 +74,7 @@ diesem Session-Eintrag. Gemeinsame Build-Dateien wurden nicht geändert.
 
 - `1980ec9 feat(common): add validated resource names`
 - `6a7c02e feat(common): add secure path and token utilities`
+- `9b9d067 docs: record common foundation progress`
 
 ## Nächster sinnvoller Schritt
 
