@@ -5,6 +5,8 @@
 *.toml text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+*.sh text eol=lf
+*.bats text eol=lf
 *.bat text eol=crlf
 gradlew text eol=lf
 *.jar binary
