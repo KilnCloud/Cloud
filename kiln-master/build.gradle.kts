@@ -2,7 +2,7 @@ plugins {
     id("java")
 }
 
-group = "at.kilncloud.common"
+group = "at.kilncloud.master"
 version = "1.0-SNAPSHOT"
 
 java {

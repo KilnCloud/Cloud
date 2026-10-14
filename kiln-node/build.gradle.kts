@@ -2,8 +2,14 @@ plugins {
     id("java")
 }
 
-group = "at.kilncloud.api"
+group = "at.kilncloud.node"
 version = "1.0-SNAPSHOT"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
 
 repositories {
     mavenCentral()

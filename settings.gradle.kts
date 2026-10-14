@@ -1,5 +1,6 @@
-rootProject.name = "Cloud"
-include("api")
-include("common")
-include("master")
-include("node")
+rootProject.name = "KilnCloud"
+
+include("kiln-api")
+include("kiln-common")
+include("kiln-master")
+include("kiln-node")
