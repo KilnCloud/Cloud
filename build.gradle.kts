@@ -19,7 +19,6 @@ tasks.named("build") {
 
 tasks.named("clean") {
     dependsOn(subprojects.map { "${it.path}:clean" })
-    dependsOn(buildLogic.task(":clean"))
 }
 
 tasks.register("spotbugsMain") {
