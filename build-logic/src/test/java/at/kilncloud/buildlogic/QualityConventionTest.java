@@ -100,6 +100,13 @@ final class QualityConventionTest {
     @DisplayName("kiln.quality: sauberer, formatierter und getesteter Code besteht check")
     void quality_acceptsCleanModule() throws IOException {
         ConventionFixture fixture = new ConventionFixture(dir, "kiln.java-cloud", "kiln.quality");
+        fixture.mainSource("at/kilncloud/demo/package-info.java", """
+                /** Demo package. */
+                @NullMarked
+                package at.kilncloud.demo;
+
+                import org.jspecify.annotations.NullMarked;
+                """);
         fixture.mainSource("at/kilncloud/demo/Good.java", """
                 package at.kilncloud.demo;
 
@@ -136,6 +143,38 @@ final class QualityConventionTest {
         // The fixture sources are not hand-formatted; Spotless formats them, then check must pass.
         fixture.run("spotlessApply");
         fixture.run("check");
+    }
+
+    @Test
+    @DisplayName("kiln.quality: ein Paket ohne @NullMarked lässt verifyNullMarked fehlschlagen")
+    void quality_verifyNullMarkedRejectsUnmarkedPackage() throws IOException {
+        ConventionFixture fixture = new ConventionFixture(dir, "kiln.java-cloud", "kiln.quality");
+        fixture.mainSource("at/kilncloud/demo/Plain.java", """
+                package at.kilncloud.demo;
+
+                /** Code in an unmarked package. */
+                public final class Plain {
+                    private Plain() {}
+                }
+                """);
+        BuildResult result = fixture.runAndFail("verifyNullMarked");
+        assertTrue(result.getOutput().contains("at/kilncloud/demo: package-info.java is missing"), result.getOutput());
+    }
+
+    @Test
+    @DisplayName("kiln.quality: check umfasst verifyNullMarked")
+    void quality_checkDependsOnVerifyNullMarked() throws IOException {
+        ConventionFixture fixture = new ConventionFixture(dir, "kiln.java-cloud", "kiln.quality");
+        fixture.mainSource("at/kilncloud/demo/Plain.java", """
+                package at.kilncloud.demo;
+
+                /** Code in an unmarked package. */
+                public final class Plain {
+                    private Plain() {}
+                }
+                """);
+        BuildResult result = fixture.runAndFail("check", "--continue", "-x", "spotlessCheck", "-x", "spotbugsMain");
+        assertTrue(result.getOutput().contains("verifyNullMarked"), result.getOutput());
     }
 
     @Test

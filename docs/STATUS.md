@@ -49,7 +49,7 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 ## Bekannte Probleme und Risiken
 
 - PIT (Mutationstests) und japicmp werden noch nicht erzwungen; ein grüner Build ist kein
-  vollständiger Qualitätsnachweis. `@NullMarked` je Paket wird nur über NullAway-`AnnotatedPackages` abgedeckt.
+  vollständiger Qualitätsnachweis.
 - Gradle Dependency Verification läuft strikt mit SHA-256-Metadaten; PGP-Signaturprüfung ist noch
   nicht aktiviert.
 - Die CI-Pipeline (`.github/workflows/build.yml`) ist angelegt, ihr erster Lauf auf GitHub ist noch nicht bestätigt.
@@ -65,5 +65,5 @@ PGP-Prüfung fehlen noch; M0 ist daher nicht funktionsfähig abgeschlossen.
 1. Ersten GitHub-Actions-Lauf prüfen und die Pipeline als Pflicht-Check für `main` einrichten (Maintainer).
 2. `kiln-common` mit validierten Werttypen und vollständigen Tests beginnen (Codex).
 3. PIT und japicmp ergänzen; PGP-Signaturprüfung der Abhängigkeiten.
-4. `@NullMarked`-Regel und Test-Bibliotheken (AssertJ, Mockito, Awaitility) in die Konventionen aufnehmen.
+4. Test-Bibliotheken (AssertJ, Mockito, Awaitility) in die Konventionen aufnehmen, sobald ein Modul sie braucht.
 5. Fehlende Referenz `docs/reference/FontConverter.java` vor M7 bereitstellen.

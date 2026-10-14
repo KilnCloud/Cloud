@@ -15,6 +15,7 @@ Spotless, Error Prone/NullAway, JaCoCo und Publishing.
    Ein Modul kann das Release nicht vergessen; die Wahl ist eine sichtbare Plugin-ID.
 3. **NullAway über `AnnotatedPackages=at.kilncloud`** statt `@NullMarked` je Paket. Das wirkt
    sofort und lückenlos. Die Pflicht-Annotation aus §15 wird später als eigene Regel ergänzt.
+   *Nachtrag:* Diese Regel ist jetzt aktiv (`verifyNullMarked`, Teil von `check`).
 4. **Coverage-Gate mit Zusatzprüfung:** Gradle überspringt `jacocoTestCoverageVerification` ohne
    Ausführungsdaten. `requireCoverageData` lässt Module mit Produktionscode ohne Tests scheitern.
 5. **Dependency Verification bleibt strikt (SHA-256).** Neue Hashes werden von Gradle erzeugt

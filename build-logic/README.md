@@ -15,7 +15,7 @@ Funktionstests abgesichert. CI, PIT, japicmp, Signaturen und PGP-Prüfung fehlen
 |---|---|
 | `kiln.java-cloud` | Cloud-Module: `--release 25`, JDK-25-Toolchain |
 | `kiln.java-compat` | `kiln-api`, Bridges, Feature-Module: `--release 21` |
-| `kiln.quality` | Spotless (Palantir), Error Prone + NullAway, SpotBugs + FindSecBugs, JaCoCo ≥ 90 % |
+| `kiln.quality` | Spotless (Palantir), Error Prone + NullAway, `@NullMarked`-Pflicht, SpotBugs + FindSecBugs, JaCoCo ≥ 90 % |
 | `kiln.publishing` | `maven-publish` mit POM (Apache-2.0, SCM); kein Ziel, keine Zugangsdaten |
 | `kiln.java-base` | intern; wird von den obigen Plugins mitgebracht |
 
@@ -25,7 +25,7 @@ Ein Modul wendet genau eines von `kiln.java-cloud`/`kiln.java-compat` plus `kiln
 
 - `-Xlint:all -Werror`; Javadoc mit `-Xdoclint:all` und `-Werror`
 - Reproduzierbare Archive (keine Zeitstempel, feste Reihenfolge)
-- NullAway als Fehler für `at.kilncloud` (äquivalent zu `@NullMarked` auf allen Paketen)
+- NullAway als Fehler für `at.kilncloud`; zusätzlich verlangt `verifyNullMarked` (Teil von `check`) in jedem Paket mit Code eine `package-info.java` mit `@NullMarked` (JSpecify)
 - JaCoCo: mindestens 90 % Line und 90 % Branch pro Modul. Produktionscode ohne jeden Test
   lässt den Build fehlschlagen (`requireCoverageData`), Gradle würde die Prüfung sonst überspringen
 - SpotBugs wird nur übersprungen, wenn ein Modul ausschließlich `module-info`/`package-info` enthält
@@ -48,5 +48,4 @@ Gradle-User-Home funktioniert daher ohne vorherigen Modul-Build.
 
 - PIT, japicmp, Awaitility/Mockito/Testcontainers-Konventionen (Backlog)
 - Signierte Artefakte (M8) und PGP-Signaturprüfung der Abhängigkeiten
-- Fachliche JSpecify-`@NullMarked`-Prüfung per Regel statt nur über `AnnotatedPackages`
 - Kotlin-Formatierung der Build-Skripte
