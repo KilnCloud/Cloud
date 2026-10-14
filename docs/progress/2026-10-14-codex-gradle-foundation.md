@@ -24,6 +24,8 @@
 - Gradle-Distribution mit der offiziellen SHA-256-Prüfsumme gebunden.
 - SpotBugs 6.5.13 mit FindSecBugs 1.14.0 für alle analysierbaren Java-Source-Sets aktiviert.
 - Strikte Gradle Dependency Verification mit SHA-256-Metadaten eingerichtet.
+- Die vom IDE-Sync zusätzlich geladenen Gradle- und JUnit-Quellenartefakte mit einzeln
+  geprüften SHA-256-Werten in die Dependency Verification aufgenommen.
 
 Betroffene Dateien sind insbesondere die Root-Gradle-Dateien, `.gitignore`, `.gitattributes`,
 `README.md`, die vier Modulverzeichnisse und `docs/STATUS.md`.
@@ -43,6 +45,8 @@ Betroffene Dateien sind insbesondere die Root-Gradle-Dateien, `.gitignore`, `.gi
   analysierbaren Produktionscode und wird bis dahin explizit als leer erkannt
 - Frischer temporärer Checkout: `clean build spotbugsMain spotbugsTest` mit strikt erzwungener
   Dependency Verification erfolgreich; Checkout danach sicher entfernt
+- `prepareKotlinBuildScriptModel --dependency-verification strict`: nach Ergänzung der zehn
+  Source-Artefakte erfolgreich
 - Unabhängiges Security-Nachreview: **Freigabe**, keine verbleibenden Sicherheitsbefunde
 
 ## Offen
@@ -65,6 +69,9 @@ Betroffene Dateien sind insbesondere die Root-Gradle-Dateien, `.gitignore`, `.gi
 - Die ursprüngliche Notion-Seite war eine Lernnotiz ohne die in `AGENTS.md` geforderten Felder.
 - `gradlew clean` konnte das vorhandene Root-Buildverzeichnis wegen eines externen Windows-Locks
   nicht entfernen. Es wurden keine gewaltsamen oder destruktiven Löschversuche unternommen.
+- Der erste IDE-Sync forderte zehn Source-Artefakte an, die ein normaler CLI-Build nicht auflöst
+  und die deshalb in den anfänglichen Verifikationsmetadaten fehlten. Die Metadaten wurden um
+  genau diese Artefakte ergänzt; die strikte Prüfung wurde nicht gelockert.
 - Das erste unabhängige Security-Review fand fehlende SpotBugs-/FindSecBugs-Gates, fehlende
   Dependency Verification und eine fehlende Gradle-Distributionsprüfsumme. Alle drei Befunde
   wurden in derselben Session behoben.
