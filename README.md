@@ -11,6 +11,7 @@ geeignet.
 - `kiln-common`: gekapselte gemeinsame Implementierungsbasis
 - `kiln-master`: minimaler, nebenwirkungsfreier Master-Einstiegspunkt
 - `kiln-node`: minimaler, nebenwirkungsfreier Node-Einstiegspunkt
+- `kiln-protocol`: Wire-Verträge (Protobuf/gRPC) zwischen Master, Nodes und Bridges
 
 Alle weiteren Module aus der Zielarchitektur werden in der in `AGENTS.md` festgelegten
 Meilensteinreihenfolge ergänzt.
