@@ -1,32 +1,25 @@
 plugins {
     base
-    alias(libs.plugins.spotbugs) apply false
 }
 
 group = "at.kilncloud"
 version = "1.0-SNAPSHOT"
-
-val findsecbugsPlugin = libs.findsecbugs.plugin
 
 allprojects {
     group = rootProject.group
     version = rootProject.version
 }
 
-subprojects {
-    apply(plugin = "com.github.spotbugs")
-
-    dependencies {
-        add("spotbugsPlugins", findsecbugsPlugin)
-    }
-}
+val buildLogic = gradle.includedBuild("build-logic")
 
 tasks.named("build") {
     dependsOn(subprojects.map { "${it.path}:build" })
+    dependsOn(buildLogic.task(":build"))
 }
 
 tasks.named("clean") {
     dependsOn(subprojects.map { "${it.path}:clean" })
+    dependsOn(buildLogic.task(":clean"))
 }
 
 tasks.register("spotbugsMain") {

@@ -8,6 +8,5 @@ findsecbugs-plugin = { module = "com.h3xstream.findsecbugs:findsecbugs-plugin", 
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
-
-[plugins]
-spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs-plugin" }
+# Gradle plugin artifacts applied by the build-logic convention plugins.
+spotbugs-gradle-plugin = { module = "com.github.spotbugs.snom:spotbugs-gradle-plugin", version.ref = "spotbugs-plugin" }
